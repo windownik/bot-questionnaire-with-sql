@@ -13,9 +13,9 @@ async def start_menu(message: types.Message):
         await message.answer(text='Ваше семейное положение:', reply_markup=kb_2)
         await answer_Form.answer_2.set()
     elif 'До 18 лет' in message.text:
-        await message.answer(text='Спасибо за участие в опросе. Для вас тест закончен.')
+        await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     elif 'После 35 лет' in message.text:
-        await message.answer(text='Спасибо за участие в опросе. Для вас тест закончен.')
+        await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
 
@@ -27,7 +27,7 @@ async def start_menu(message: types.Message):
         await message.answer(text='У вас есть дети?', reply_markup=kb_3)
         await answer_Form.answer_3.set()
     elif 'Не замужем' in message.text:
-        await message.answer(text='Спасибо за участие в опросе. Для вас тест закончен.')
+        await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
 
@@ -39,7 +39,7 @@ async def start_menu(message: types.Message):
         await message.answer(text='Возраст младшего ребёнка?', reply_markup=kb_4)
         await answer_Form.answer_4.set()
     elif 'Нет' in message.text:
-        await message.answer(text='Спасибо за участие в опросе. Для вас тест закончен.')
+        await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
 
@@ -52,7 +52,7 @@ async def start_menu(message: types.Message):
                              reply_markup=kb_5_6)
         await answer_Form.answer_5.set()
     elif 'Старше 14 лет' in message.text:
-        await message.answer(text='Спасибо за участие в опросе. Для вас тест закончен.')
+        await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
 
@@ -65,7 +65,7 @@ async def start_menu(message: types.Message):
                              reply_markup=kb_5_6)
         await answer_Form.answer_6.set()
     elif 'Нет' in message.text:
-        await message.answer(text='Спасибо за участие в опросе. Для вас тест закончен.')
+        await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
 
@@ -75,11 +75,11 @@ async def start_menu(message: types.Message):
 async def start_menu(message: types.Message):
     if 'Да' in message.text:
         await message.answer(text='Какая из Ваших базовых потребностей удовлетворяются не в полной мере?\n\n'
-                                  'Если вашей потребности нет в списке напишите ее.',
+                                  'Если в предложенных вариантах нет подходящего ответа, напишите свой.',
                              reply_markup=kb_7)
         await answer_Form.answer_7.set()
     elif 'Нет' in message.text:
-        await message.answer(text='Спасибо за участие в опросе. Для вас тест закончен.')
+        await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
 
@@ -91,7 +91,7 @@ async def start_menu(message: types.Message):
             or 'Хобби' in message.text or 'Забота' in message.text:
         pass
     await message.answer(text='В какой из перечисленных сфер повседневной жизни Вам требуются перемены?\n\n'
-                              'Если вашей необходимой сферы жизни нет в списке напишите ее.',
+                              'Если в предложенных вариантах нет подходящего ответа, напишите свой.',
                          reply_markup=kb_8)
     await answer_Form.answer_8.set()
 
@@ -118,12 +118,13 @@ async def start_menu(message: types.Message):
 # Question 11
 @dp.message_handler(state=answer_Form.answer_10)
 async def start_menu(message: types.Message):
-    if 'Футболка с изображением' in message.text or 'Футболка с текстом' in message.text:
+    if 'Интересен вариант с изображением' in message.text or 'Интересен вариант с текстом' in message.text or \
+            'Интересны оба варианта' in message.text:
         await message.answer(text='На какой одежде Вы еще хотели бы иметь подобные надписи/изображения?',
                              reply_markup=kb_11)
         await answer_Form.answer_11.set()
     elif 'Не ношу одежду с надписями/изображениями' in message.text:
-        await message.answer(text='Спасибо за участие в опросе. Для вас тест закончен.')
+        await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
 
@@ -146,7 +147,9 @@ async def start_menu(message: types.Message, state: MemoryStorage):
     if 'От 1000 до 2000 рублей' in message.text or 'От 2000 до 3000 рублей' in message.text or \
             'От 3000 до 4000 рублей' in message.text or '5000 рублей и более' in message.text or \
             'Для всех перечисленных':
-        await message.answer(text='Спасибо за прохождение опроса.')
+        await message.answer(text='Благодарим за уделённое время и прохождение опроса. '
+                                  'С Вашей помощью мы готовы донести обществу истину о том, что быть мамой - '
+                                  'это главная работа на свете!')
         await state.finish()
     else:
         await message.answer('Нажмите кнопку ниже')

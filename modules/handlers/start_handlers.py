@@ -11,8 +11,8 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 # Start menu
 @dp.message_handler(commands=['start'], state='*')
 async def start_menu(message: types.Message):
-    await message.answer(text='Привет! Перед тобой телеграм бот опросник. Для нас важно получить достоверную '
-                              'информацию, по этому пожалуйста отвечайте честно.\n\n'
+    await message.answer(text='Привет! Наша компания изучает мнение женской аудитории. Просим честно ответить '
+                              'на предложенные вопросы. Для нас важно Ваше мнение!\n\n'
                               'Ваш возраст?', reply_markup=kb_1)
     await answer_Form.answer_1.set()
 

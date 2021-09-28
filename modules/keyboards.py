@@ -74,13 +74,15 @@ kb_8.add(btn_25)
 kb_8.add(btn_26)
 
 
-btn_27 = KeyboardButton(f'Футболка с изображением')
-btn_28 = KeyboardButton(f'Футболка с текстом')
-btn_29 = KeyboardButton(f'Не ношу одежду с надписями/изображениями')
+btn_27 = KeyboardButton(f'Интересен вариант с изображением')
+btn_28 = KeyboardButton(f'Интересен вариант с текстом')
+btn_29 = KeyboardButton(f'Интересны оба варианта')
+btn_29_1 = KeyboardButton(f'Не ношу одежду с надписями/изображениями')
 
 kb_10 = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add(btn_27)
 kb_10.add(btn_28)
 kb_10.add(btn_29)
+kb_10.add(btn_29_1)
 
 
 btn_30 = KeyboardButton(f'Пижама')
