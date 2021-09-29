@@ -16,8 +16,8 @@ def read_value_table_name(
 
 # Пользователь проверяет себя по базе данных
 def read_all(
-        name: str,
-        table: str):
+        name: str = '*',
+        table: str = 'answers'):
     connect = sqlite3.connect('modules/database.db')
     curs = connect.cursor()
     curs.execute(f'SELECT {name} FROM {table}')
@@ -27,8 +27,8 @@ def read_all(
 
 # Создаем первую запись в бд
 def insert_first_note(
-        table: str,
         telegram_id: int, *,
+        table: str = 'answers',
         id_name: str = 'telegram_id'):
     connect = sqlite3.connect('modules/database.db')
     curs = connect.cursor()
@@ -39,10 +39,10 @@ def insert_first_note(
 
 # Обновляем любые данные в любую таблицу
 def insert_info(
-        table: str,
         telegram_id: int,
         name: str,
         data, *,
+        table: str = 'answers',
         id_name: str = 'telegram_id'):
     connect = sqlite3.connect('modules/database.db')
     curs = connect.cursor()
@@ -52,9 +52,9 @@ def insert_info(
 
 
 # Читаем данные в таблице
-def read_values_by_name(table: str,
-                        data, *,
+def read_values_by_name(data, *,
                         id_name: str = 'telegram_id',
+                        table: str = 'answers',
                         name: str = '*'):
     connect = sqlite3.connect('modules/database.db')
     curs = connect.cursor()

@@ -1,9 +1,9 @@
 from aiogram import types
 from main import dp
-from aiogram.dispatcher import FSMContext
 from modules.dispatcher import answer_Form
 from modules.keyboards import kb_2, kb_3, kb_4, kb_5_6, kb_7, kb_8, kb_10, kb_11, kb_12
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from modules import sqLite
 
 
 # Question 2
@@ -18,6 +18,12 @@ async def start_menu(message: types.Message):
         await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
+    data = sqLite.read_values_by_name(data=message.from_user.id)
+    if data is None:
+        sqLite.insert_first_note(telegram_id=message.from_user.id)
+    else:
+        pass
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_1', data=message.text)
 
 
 # Question 3
@@ -30,6 +36,7 @@ async def start_menu(message: types.Message):
         await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_2', data=message.text)
 
 
 # Question 4
@@ -42,6 +49,7 @@ async def start_menu(message: types.Message):
         await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_3', data=message.text)
 
 
 # Question 5
@@ -55,6 +63,7 @@ async def start_menu(message: types.Message):
         await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_4', data=message.text)
 
 
 # Question 6
@@ -68,6 +77,7 @@ async def start_menu(message: types.Message):
         await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_5', data=message.text)
 
 
 # Question 7
@@ -82,6 +92,7 @@ async def start_menu(message: types.Message):
         await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_6', data=message.text)
 
 
 # Question 8
@@ -94,6 +105,7 @@ async def start_menu(message: types.Message):
                               'Если в предложенных вариантах нет подходящего ответа, напишите свой.',
                          reply_markup=kb_8)
     await answer_Form.answer_8.set()
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_7', data=message.text)
 
 
 # Question 9
@@ -106,6 +118,7 @@ async def start_menu(message: types.Message):
                               'хотелось бы рассказать мужу/окружающим, но по каким-то причинам не можете этого '
                               'сделать. До 5 слов для каждой фразы.', reply_markup=types.ReplyKeyboardRemove())
     await answer_Form.answer_9.set()
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_8', data=message.text)
 
 
 # Question 10
@@ -113,6 +126,7 @@ async def start_menu(message: types.Message):
 async def start_menu(message: types.Message):
     await message.answer(text='Вы надели бы футболку с надписью/изображением своего желания?', reply_markup=kb_10)
     await answer_Form.answer_10.set()
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_9', data=message.text)
 
 
 # Question 11
@@ -127,6 +141,7 @@ async def start_menu(message: types.Message):
         await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_10', data=message.text)
 
 
 # Question 12
@@ -139,6 +154,7 @@ async def start_menu(message: types.Message):
         await answer_Form.answer_12.set()
     else:
         await message.answer('Нажмите на кнопку в низу')
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_11', data=message.text)
 
 
 # Question 12
@@ -153,3 +169,4 @@ async def start_menu(message: types.Message, state: MemoryStorage):
         await state.finish()
     else:
         await message.answer('Нажмите кнопку ниже')
+    sqLite.insert_info(telegram_id=message.from_user.id, name='answer_12', data=message.text)

@@ -1,6 +1,5 @@
 from aiogram import executor
 from modules.dispatcher import dp
-from modules import handlers
 
 
 if __name__ == '__main__':

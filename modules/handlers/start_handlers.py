@@ -1,10 +1,12 @@
 from aiogram import types
 from main import dp
 from aiogram.dispatcher.filters import Text
-import logging
+import logging, sqlite3
+import openpyxl
 from aiogram.dispatcher import FSMContext
-from modules.dispatcher import answer_Form
+from modules.dispatcher import bot, answer_Form
 from modules.keyboards import kb_1
+from modules import sqLite, stat_work
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 
@@ -36,3 +38,66 @@ async def cancel_handler(message: types.Message, state: FSMContext):
     logging.info('Cancelling state %r', current_state)
     # Cancel state and inform user about it
     await state.finish()
+
+
+# Take data base
+@dp.message_handler(commands=['take_excel'], state='*')
+async def start_menu(message: types.Message):
+    connect = sqlite3.connect('modules/database.db')
+    curs = connect.cursor()
+    curs.execute(f'SELECT * FROM answers')
+    data = curs.fetchall()
+    xl = openpyxl.load_workbook(filename='modules/Output.xlsx')
+    worksheet = xl['1']
+    line = 1
+    for i in data:
+        worksheet[f'B{line}'] = f'{i[2]}'
+        worksheet[f'C{line}'] = f'{i[3]}'
+        worksheet[f'D{line}'] = f'{i[4]}'
+        worksheet[f'E{line}'] = f'{i[5]}'
+        worksheet[f'F{line}'] = f'{i[6]}'
+        worksheet[f'G{line}'] = f'{i[7]}'
+        worksheet[f'H{line}'] = f'{i[8]}'
+        worksheet[f'I{line}'] = f'{i[9]}'
+        worksheet[f'J{line}'] = f'{i[10]}'
+        worksheet[f'K{line}'] = f'{i[11]}'
+        worksheet[f'L{line}'] = f'{i[12]}'
+        worksheet[f'M{line}'] = f'{i[13]}'
+        line += 1
+    xl.save('Output.xlsx')
+    xl.close()
+    with open('modules/Output.xlsx', 'rb') as file:
+        await bot.send_document(chat_id=message.from_user.id, document=file, caption='Отправил')
+    file.close()
+
+
+# Take data base
+@dp.message_handler(commands=['take_db'], state='*')
+async def start_menu(message: types.Message):
+    chat_id = message.from_user.id
+    with open('modules/database.db', 'rb') as file:
+        await bot.send_document(chat_id=chat_id, document=file, caption='Отправил')
+    file.close()
+
+
+# Get data
+@dp.message_handler(state='*', commands=['stata'])
+async def cancel_handler(message: types.Message):
+    await message.answer('Введите номер вопроса от 1 до 12')
+    await answer_Form.stata_1.set()
+
+
+@dp.message_handler(state=answer_Form.stata_1)
+async def cancel_handler(message: types.Message):
+    if message.text.isdigit():
+        if 0 < int(message.text) < 13:
+            text = stat_work.stat(message.text)
+            await message.answer(text=text, parse_mode='html')
+        else:
+            await message.answer('Введите только число от 1 до 12')
+    else:
+        await message.answer('Введите только число от 1 до 12')
+
+
+
+

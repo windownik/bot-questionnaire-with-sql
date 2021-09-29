@@ -29,3 +29,5 @@ class answer_Form(StatesGroup):
     answer_10 = State()
     answer_11 = State()
     answer_12 = State()
+
+    stata_1 = State()
