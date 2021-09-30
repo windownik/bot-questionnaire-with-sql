@@ -1,5 +1,4 @@
 from modules import sqLite
-import xlsxwriter
 
 
 def stat(num: int):

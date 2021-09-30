@@ -6,8 +6,7 @@ import openpyxl
 from aiogram.dispatcher import FSMContext
 from modules.dispatcher import bot, answer_Form
 from modules.keyboards import kb_1
-from modules import sqLite, stat_work
-from aiogram.contrib.fsm_storage.memory import MemoryStorage
+from modules import stat_work
 
 
 # Start menu
