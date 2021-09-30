@@ -93,7 +93,7 @@ async def start_menu(message: types.Message):
 # Question 8
 @dp.message_handler(state=answer_Form.answer_7)
 async def start_menu(message: types.Message):
-    if 'Сон' in message.text or 'Еда' in message.text or 'Безопасность' in message.text or 'Отдых' in message.text\
+    if 'Сон' in message.text or 'Еда' in message.text or 'Безопасность' in message.text or 'Отдых' in message.text \
             or 'Хобби' in message.text or 'Забота' in message.text:
         pass
     await message.answer(text='В какой из перечисленных сфер повседневной жизни Вам требуются перемены?\n\n'
@@ -144,8 +144,9 @@ async def start_menu(message: types.Message):
 async def start_menu(message: types.Message):
     if 'Пижама' in message.text or 'Худи' in message.text or 'Комбинезон' in message.text or 'Спортивные штаны, шорты' \
             in message.text or 'Для всех перечисленных':
-        await message.answer(text='В каком ценовом диапазоне Вы готовы рассмотреть покупку подобной одежды?',
-                             reply_markup=kb_12)
+        await message.answer(
+            text='Сколько по Вашему мнению должна стоить вещь хорошего качества, которую Вы бы купили?',
+            reply_markup=types.ReplyKeyboardRemove())
         await answer_Form.answer_12.set()
     else:
         await message.answer('Нажмите на кнопку в низу')
@@ -155,13 +156,8 @@ async def start_menu(message: types.Message):
 # Question 12
 @dp.message_handler(state=answer_Form.answer_12)
 async def start_menu(message: types.Message, state: MemoryStorage):
-    if 'От 1000 до 2000 рублей' in message.text or 'От 2000 до 3000 рублей' in message.text or \
-            'От 3000 до 4000 рублей' in message.text or '5000 рублей и более' in message.text or \
-            'Для всех перечисленных':
-        await message.answer(text='Благодарим за уделённое время и прохождение опроса. '
-                                  'С Вашей помощью мы готовы донести обществу истину о том, что быть мамой - '
-                                  'это главная работа на свете!')
-        await state.finish()
-    else:
-        await message.answer('Нажмите кнопку ниже')
+    await message.answer(text='Благодарим за уделённое время и прохождение опроса. '
+                              'С Вашей помощью мы готовы донести обществу истину о том, что быть мамой - '
+                              'это главная работа на свете!')
+    await state.finish()
     sqLite.insert_info(telegram_id=message.from_user.id, name='answer_12', data=message.text)
