@@ -5,17 +5,20 @@ import logging, sqlite3
 import openpyxl
 from aiogram.dispatcher import FSMContext
 from modules.dispatcher import bot, answer_Form
-from modules.keyboards import kb_1
-from modules import stat_work
+from modules.keyboards import kb_2
+from modules import stat_work, sqLite
 
 
 # Start menu
 @dp.message_handler(commands=['start'], state='*')
 async def start_menu(message: types.Message):
-    await message.answer(text='Привет! Наша компания изучает мнение женской аудитории. Просим честно ответить '
-                              'на предложенные вопросы. Для нас важно Ваше мнение!\n\n'
-                              'Ваш возраст?', reply_markup=kb_1)
-    await answer_Form.answer_1.set()
+    await message.answer(text='Ваше семейное положение?', reply_markup=kb_2)
+    data = sqLite.read_values_by_name(data=message.from_user.id)
+    if data is None:
+        sqLite.insert_first_note(telegram_id=message.from_user.id)
+    else:
+        pass
+    await answer_Form.answer_2.set()
 
 
 # Help menu

@@ -18,11 +18,6 @@ async def start_menu(message: types.Message):
         await message.answer(text='Благодарим за участие в опросе. Для вас тест завершён.')
     else:
         await message.answer('Нажмите на кнопку в низу')
-    data = sqLite.read_values_by_name(data=message.from_user.id)
-    if data is None:
-        sqLite.insert_first_note(telegram_id=message.from_user.id)
-    else:
-        pass
     sqLite.insert_info(telegram_id=message.from_user.id, name='answer_1', data=message.text)
 
 
