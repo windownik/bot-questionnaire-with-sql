@@ -64,7 +64,7 @@ async def start_menu(message: types.Message):
         worksheet[f'L{line}'] = f'{i[12]}'
         worksheet[f'M{line}'] = f'{i[13]}'
         line += 1
-    xl.save('Output.xlsx')
+    xl.save('modules/Output.xlsx')
     xl.close()
     with open('modules/Output.xlsx', 'rb') as file:
         await bot.send_document(chat_id=message.from_user.id, document=file, caption='Отправил')
@@ -97,7 +97,3 @@ async def cancel_handler(message: types.Message):
             await message.answer('Введите только число от 1 до 12')
     else:
         await message.answer('Введите только число от 1 до 12')
-
-
-
-

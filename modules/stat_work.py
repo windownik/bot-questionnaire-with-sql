@@ -201,7 +201,7 @@ def stat(num: int):
     # Question 9
     if int(num) == 9:
         text = f'Для просмотра ответов на данные вопросы скачайте базу данных (/take_db) и просмотрите данные в ' \
-               f'ручном режиме (рекомендуем программу SQLite studio)'
+               f'ручном режиме (рекомендуем программу SQLite studio), для загрузки Excel файла нажмите /take_excel'
         return text
     # Question 10
     if int(num) == 10:
